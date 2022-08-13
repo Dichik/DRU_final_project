@@ -843,18 +843,18 @@ Here are the result of each model:
 We can see that `SVC` shows the best results: accuracy score is `0.82` on the validation set.
 
 Now we need to train the estimator on the whole training set and save the model:
+
 ```python
 import pickle
 import json
 import pandas as pd
 from sklearn.svm import SVC
 
-from utils.dataloader import DataLoader 
+from utils.dataloader import DataLoader
 from settings.constants import TRAIN_CSV
 
-
 with open('settings/specifications.json') as f:
-    specifications = json.load(f)
+   specifications = json.load(f)
 
 raw_train = pd.read_csv(TRAIN_CSV)
 x_columns = specifications['description']['X']
@@ -869,23 +869,23 @@ y = raw_train.Survived
 
 model = SVC()
 model.fit(X, y)
-with open('models/SVC.pickle', 'wb')as f:
-    pickle.dump(model, f)
+with open('models/SVD.pickle', 'wb') as f:
+   pickle.dump(model, f)
 ```
 
 The trained model is saved now. To check its performance we can use the following code:
+
 ```python
 import pickle
 import json
 import pandas as pd
 from sklearn.svm import SVC
 
-from utils.dataloader import DataLoader 
-from settings. constants import VAL_CSV
-
+from utils.dataloader import DataLoader
+from settings.constants import VAL_CSV
 
 with open('settings/specifications.json') as f:
-    specifications = json.load(f)
+   specifications = json.load(f)
 
 x_columns = specifications['description']['X']
 y_column = specifications['description']['y']
@@ -898,7 +898,7 @@ loader.fit(x_raw)
 X = loader.load_data()
 y = raw_val.Survived
 
-loaded_model = pickle.load(open('models/SVC.pickle', 'rb'))
+loaded_model = pickle.load(open('models/SVD.pickle', 'rb'))
 loaded_model.score(X, y)
 ```
 

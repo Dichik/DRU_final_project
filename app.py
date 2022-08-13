@@ -1,64 +1,34 @@
-# import pickle
-# import json
-# import pandas as pd
-# from sklearn.svm import SVC
-#
-# from utils.dataloader import DataLoader
-# from settings.constants import TRAIN_CSV
-#
-#
-# with open('settings/specifications.json') as f:
-#     specifications = json.load(f)
-#
-# raw_train = pd.read_csv(TRAIN_CSV)
-# x_columns = specifications['description']['X']
-# y_column = specifications['description']['y']
-#
-# X_raw = raw_train[x_columns]
-#
-# loader = DataLoader()
-# loader.fit(X_raw)
-# X = loader.load_data()
-# y = raw_train.Survived
-#
-# model = SVC()
-# model.fit(X, y)
-# with open('models/SVC.pickle', 'wb')as f:
-#     pickle.dump(model, f)
+from utils import Predictor
+from utils import DataLoader
 
+from flask import Flask, request, jsonify, make_response
 
-
-
-import json
-import requests
 import pandas as pd
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
+import json
 
-from utils import DataLoader, Estimator
-from settings.constants import TRAIN_CSV, VAL_CSV
 
-with open('settings/specifications.json') as f:
-    specifications = json.load(f)
+app = Flask(__name__)
 
-info = specifications['description']
-x_columns, y_column, metrics = info['X'], info['y'], info['metrics']
 
-train_set = pd.read_csv(TRAIN_CSV, header=0)
-val_set = pd.read_csv(VAL_CSV, header=0)
+@app.route('/predict', methods=['GET'])
+def predict():
+    received_keys = sorted(list(request.form.keys()))
+    if len(received_keys) > 1 or 'data' not in received_keys:
+        err = 'Wrong request keys'
+        return make_response(jsonify(error=err), 400)
 
-train_x, train_y = train_set[x_columns], train_set[y_column]
-val_x, val_y = val_set[x_columns], val_set[y_column]
+    data = json.loads(request.form.get(received_keys[0]))
+    df = pd.DataFrame.from_dict(data)
 
-loader = DataLoader()
-loader.fit(val_x)
-val_processed = loader.load_data()
-print('data: ', val_processed[:10])
+    loader = DataLoader()
+    loader.fit(df)
+    processed_df = loader.load_data()
 
-req_data = {'data': json.dumps(val_x.to_dict())}
-response = requests.get('http://0.0.0.0:8000/predict', data=req_data)
-api_predict = response.json()['prediction']
-print('predict: ', api_predict[:10])
+    predictor = Predictor()
+    response_dict = {'prediction': predictor.predict(processed_df).tolist()}
 
-api_score = eval(metrics)(val_y, api_predict)
-print('accuracy: ', api_score)
+    return make_response(jsonify(response_dict), 200)
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=8000) 
