@@ -1,34 +1,33 @@
-from utils import Predictor
-from utils import DataLoader
-
-from flask import Flask, request, jsonify, make_response
-
-import pandas as pd
 import json
+import requests
+import pandas as pd
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
 
+from utils import DataLoader, Estimator
+from settings.constants import TRAIN_CSV, VAL_CSV
 
-app = Flask(__name__)
+with open('settings/specifications.json') as f:
+    specifications = json.load(f)
 
+info = specifications['description']
+x_columns, y_column, metrics = info['X'], info['y'], info['metrics']
 
-@app.route('/predict', methods=['GET'])
-def predict():
-    received_keys = sorted(list(request.form.keys()))
-    if len(received_keys) > 1 or 'data' not in received_keys:
-        err = 'Wrong request keys'
-        return make_response(jsonify(error=err), 400)
+train_set = pd.read_csv(TRAIN_CSV, header=0)
+val_set = pd.read_csv(VAL_CSV, header=0)
 
-    data = json.loads(request.form.get(received_keys[0]))
-    df = pd.DataFrame.from_dict(data)
+train_x, train_y = train_set[x_columns], train_set[y_column]
+val_x, val_y = val_set[x_columns], val_set[y_column]
 
-    loader = DataLoader()
-    loader.fit(df)
-    processed_df = loader.load_data()
+loader = DataLoader()
+loader.fit(val_x)
+val_processed = loader.load_data()
+print('data: ', val_processed[:10])
 
-    predictor = Predictor()
-    response_dict = {'prediction': predictor.predict(processed_df).tolist()}
+req_data = {'data': json.dumps(val_x.to_dict())}
+response = requests.get('http://0.0.0.0:8000/predict', data=req_data)
+api_predict = response.json()['prediction']
+print('predict: ', api_predict[:10])
 
-    return make_response(jsonify(response_dict), 200)
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8000) 
+api_score = eval(metrics)(val_y, api_predict)
+print('accuracy: ', api_score)
