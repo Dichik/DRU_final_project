@@ -6,6 +6,10 @@ from sklearn.preprocessing import LabelEncoder
 
 
 class DataLoader(object):
+    def __init__(self):
+        self.dataset = None
+        self.dataset = pd.set_option('mode.chained_assignment', None)
+
     def fit(self, dataset):
         self.dataset = dataset.copy()
 
