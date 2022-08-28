@@ -20,5 +20,5 @@ class DataLoader(object):
         return ""
 
     def load_data(self):
-        self.dataset = self.dataset.drop(columns=['id', 'date', 'condition', 'zipcode', 'long', 'lat'])
+        self.dataset.drop(['id', 'lat', 'condition', 'long', 'date', 'zipcode'], axis=1, inplace=True)
         return self.dataset
