@@ -40,7 +40,7 @@
             "sqft_lot15"
                 ],
         "y":"price",
-        "metrics":"accuracy_score"
+        "metrics":"r2_score"
     },
     "operations":[
         {
