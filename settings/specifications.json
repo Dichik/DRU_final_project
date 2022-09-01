@@ -1,59 +1,216 @@
 {
-    "description":{
+    "description": {
         "X": [
             "id",
-            "date",
-            "bedrooms",
-            "bathrooms",
-            "sqft_living",
-            "sqft_lot",
-            "floors",
-            "waterfront",
-            "view",
-            "condition",
-            "grade",
-            "sqft_above",
-            "sqft_basement",
-            "yr_built",
-            "yr_renovated",
-            "zipcode",
-            "lat",
-            "long",
-            "sqft_living15",
-            "sqft_lot15"
-
+            "gender",
+            "age",
+            "hypertension",
+            "heart_disease",
+            "ever_married",
+            "work_type",
+            "Residence_type",
+            "avg_glucose_level",
+            "bmi",
+            "smoking_status",
+            "stroke"
         ],
-        "final_columns":[
-            "bedrooms",
-            "bathrooms",
-            "sqft_living",
-            "sqft_lot",
-            "floors",
-            "waterfront",
-            "view",
-            "grade",
-            "sqft_above",
-            "sqft_basement",
-            "yr_built",
-            "yr_renovated",
-            "sqft_living15",
-            "sqft_lot15"
-                ],
-        "y":"price",
-        "metrics":"r2_score"
+        "final_columns": [
+            "gender",
+            "age",
+            "hypertension",
+            "heart_disease",
+            "ever_married",
+            "avg_glucose_level",
+            "bmi",
+            "smoking_status",
+            "stroke"
+        ],
+        "y": "stroke",
+        "metrics": "accuracy_score"
     },
-    "operations":[
+    "operations": [
         {
-            "operation_number":1,
-            "operation_name":"drop_columns",
-            "params":{
-                "in_columns":[
+            "operation_number": 1,
+            "operation_name": "drop_columns",
+            "params": {
+                "in_columns": [
                     "id",
-                    "date",
-                    "condition",
-                    "zipcode",
-                    "lat",
-                    "long"
+                    "Residence_type",
+                    "work_type"
+                ]
+            }
+        },
+        {
+            "operation_number": 2,
+            "operation_name": "fill_nans",
+            "params": {
+                "in_columns": [
+                    "bmi"
+                ],
+                "methods": [
+                    "mean"
+                ]
+            }
+        },
+        {
+            "operation_number": 3,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "smoking_status"
+                ],
+                "old_values":[
+                    "Unknown"
+                ],
+                "new_values":[
+                    0
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 4,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "smoking_status"
+                ],
+                "old_values":[
+                    "never smoked"
+                ],
+                "new_values":[
+                    -1
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 5,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "smoking_status"
+                ],
+                "old_values":[
+                    "formerly smoked"
+                ],
+                "new_values":[
+                    1
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 6,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "smoking_status"
+                ],
+                "old_values":[
+                    "smokes"
+                ],
+                "new_values":[
+                    2
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 7,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "gender"
+                ],
+                "old_values":[
+                    "Other"
+                ],
+                "new_values":[
+                    "Female"
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 8,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "gender"
+                ],
+                "old_values":[
+                    "Male"
+                ],
+                "new_values":[
+                    1
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 9,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "gender"
+                ],
+                "old_values":[
+                    "Female"
+                ],
+                "new_values":[
+                    0
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 10,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "ever_married"
+                ],
+                "old_values":[
+                    "Yes"
+                ],
+                "new_values":[
+                    1
+                ],
+                "inplaces":[
+                    "True"
+                ]
+            }
+        },
+        {
+            "operation_number": 11,
+            "operation_name": "replace",
+            "params": {
+                "in_columns":[
+                    "ever_married"
+                ],
+                "old_values":[
+                    "No"
+                ],
+                "new_values":[
+                    0
+                ],
+                "inplaces":[
+                    "True"
                 ]
             }
         }
