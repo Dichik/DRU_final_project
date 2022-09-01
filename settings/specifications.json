@@ -57,78 +57,6 @@
             "operation_name": "replace",
             "params": {
                 "in_columns":[
-                    "smoking_status"
-                ],
-                "old_values":[
-                    "Unknown"
-                ],
-                "new_values":[
-                    0
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 4,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
-                    "smoking_status"
-                ],
-                "old_values":[
-                    "never smoked"
-                ],
-                "new_values":[
-                    -1
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 5,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
-                    "smoking_status"
-                ],
-                "old_values":[
-                    "formerly smoked"
-                ],
-                "new_values":[
-                    1
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 6,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
-                    "smoking_status"
-                ],
-                "old_values":[
-                    "smokes"
-                ],
-                "new_values":[
-                    2
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 7,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
                     "gender"
                 ],
                 "old_values":[
@@ -143,74 +71,13 @@
             }
         },
         {
-            "operation_number": 8,
-            "operation_name": "replace",
+            "operation_number": 4,
+            "operation_name": "encode_labels",
             "params": {
-                "in_columns":[
-                    "gender"
-                ],
-                "old_values":[
-                    "Male"
-                ],
-                "new_values":[
-                    1
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 9,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
-                    "gender"
-                ],
-                "old_values":[
-                    "Female"
-                ],
-                "new_values":[
-                    0
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 10,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
+                "in_columns": [
+                    "smoking_status",
+                    "gender",
                     "ever_married"
-                ],
-                "old_values":[
-                    "Yes"
-                ],
-                "new_values":[
-                    1
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 11,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
-                    "ever_married"
-                ],
-                "old_values":[
-                    "No"
-                ],
-                "new_values":[
-                    0
-                ],
-                "inplaces":[
-                    "True"
                 ]
             }
         }
