@@ -20,15 +20,15 @@ class DataLoader(object):
         return ""
 
     def load_data(self):
-        columns_to_convert = ['hypertension', 'heart_disease', 'stroke']
-        self.dataset[columns_to_convert] = self.dataset[columns_to_convert].astype(str)
-        self.dataset['stroke'] = self.dataset['stroke'].astype(int)
+        # columns_to_convert = ['hypertension', 'heart_disease', 'stroke']
+        # self.dataset[columns_to_convert] = self.dataset[columns_to_convert].astype(str)
+        # self.dataset['stroke'] = self.dataset['stroke'].astype(int)
 
-        self.dataset.drop('id', axis=1, inplace=True)
-        self.dataset.drop('Residence_type', axis=1, inplace=True)
-        self.dataset.drop('work_type', axis=1, inplace=True)
+        self.dataset.drop('id', axis=1, inplace=True) # +
+        self.dataset.drop('Residence_type', axis=1, inplace=True) # +
+        self.dataset.drop('work_type', axis=1, inplace=True) # +
 
-        self.dataset["bmi"].fillna(self.dataset["bmi"].mean(), inplace=True)
+        self.dataset["bmi"].fillna(self.dataset["bmi"].mean(), inplace=True) # +
 
         self.dataset['smoking_status'].replace({'Unknown': 0, 'never smoked': -1, 'formerly smoked': 1, 'smokes': 2}, inplace=True)
         self.dataset['gender'].replace({'Other': 'Female'}, inplace=True)

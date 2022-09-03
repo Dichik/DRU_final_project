@@ -72,12 +72,39 @@
         },
         {
             "operation_number": 4,
-            "operation_name": "encode_labels",
+            "operation_name": "replace",
             "params": {
                 "in_columns": [
-                    "smoking_status",
                     "gender",
-                    "ever_married"
+                    "gender",
+                    "smoking_status",
+                    "smoking_status",
+                    "smoking_status",
+                    "smoking_status"
+                ],
+                "old_values": [
+                    "Male",
+                    "Female",
+                    "Unknown",
+                    "never smoked",
+                    "formerly smoked",
+                    "smokes"
+                ],
+                "new_values": [
+                    1,
+                    0,
+                    0,
+                    -1,
+                    1,
+                    2
+                ],
+                "inplaces": [
+                    "True",
+                    "True",
+                    "True",
+                    "True",
+                    "True",
+                    "True"
                 ]
             }
         }
