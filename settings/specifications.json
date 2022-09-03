@@ -11,19 +11,14 @@
             "Residence_type",
             "avg_glucose_level",
             "bmi",
-            "smoking_status",
-            "stroke"
+            "smoking_status"
         ],
         "final_columns": [
-            "gender",
             "age",
             "hypertension",
             "heart_disease",
-            "ever_married",
             "avg_glucose_level",
-            "bmi",
-            "smoking_status",
-            "stroke"
+            "bmi"
         ],
         "y": "stroke",
         "metrics": "accuracy_score"
@@ -36,7 +31,10 @@
                 "in_columns": [
                     "id",
                     "Residence_type",
-                    "work_type"
+                    "work_type",
+                    "gender",
+                    "ever_married",
+                    "smoking_status"
                 ]
             }
         },
@@ -49,62 +47,6 @@
                 ],
                 "methods": [
                     "mean"
-                ]
-            }
-        },
-        {
-            "operation_number": 3,
-            "operation_name": "replace",
-            "params": {
-                "in_columns":[
-                    "gender"
-                ],
-                "old_values":[
-                    "Other"
-                ],
-                "new_values":[
-                    "Female"
-                ],
-                "inplaces":[
-                    "True"
-                ]
-            }
-        },
-        {
-            "operation_number": 4,
-            "operation_name": "replace",
-            "params": {
-                "in_columns": [
-                    "gender",
-                    "gender",
-                    "smoking_status",
-                    "smoking_status",
-                    "smoking_status",
-                    "smoking_status"
-                ],
-                "old_values": [
-                    "Male",
-                    "Female",
-                    "Unknown",
-                    "never smoked",
-                    "formerly smoked",
-                    "smokes"
-                ],
-                "new_values": [
-                    1,
-                    0,
-                    0,
-                    -1,
-                    1,
-                    2
-                ],
-                "inplaces": [
-                    "True",
-                    "True",
-                    "True",
-                    "True",
-                    "True",
-                    "True"
                 ]
             }
         }
